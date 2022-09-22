@@ -1,2 +1,2 @@
-# competitive_programming
+# Competitive Programming
 Repositorio para el curso de Programación Competitiva
