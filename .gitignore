@@ -37,3 +37,5 @@ plantilla.cpp
 */output.txt
 .vscode/tasks.json
 .vscode/settings.json
+*.txt
+Set_01/AUX.cpp
