@@ -26,23 +26,28 @@ int main()
     while (cin >> N >> B >> H >> W) // 4 entradas seguidas
     {
         int costo = 0, minimum = Blimit;
-        int disponible = 1;
+        bool disponible = false;
         for (int i = 0; i < H; i++)
         {
             cin >> costo;
-            if (costo * N < minimum)
-                minimum = costo * N;
-
-            int cama;
+            int cama = 0, maxCama = 0;
             for (int j = 0; j < W; j++)
             {
                 cin >> cama;
-                if (cama == 0)
-                    disponible = 0; // condición de no disponible
+                maxCama = max(cama, maxCama);
+            }
+            if (maxCama >= N)
+            {
+                int costoTotal = N * costo;
+                if(costoTotal<= B)
+                {
+                    minimum = min(minimum,costoTotal);
+                    disponible = true; 
+                }
             }
         }
 
-        if (minimum <= B && disponible == 1)
+        if (disponible)
             cout << minimum << "\n";
         else
             cout<<"stay home\n";
