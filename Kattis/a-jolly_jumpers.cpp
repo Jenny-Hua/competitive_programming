@@ -6,13 +6,10 @@ using namespace std;
 int main()
 {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    #ifndef ONLINE_JUDGE
-        freopen("in_01.txt", "r", stdin);
-        freopen("out_01.txt", "w", stdout);
-    #endif
+
     
     int cases;
-    while( cin>>cases)
+    while(cin>>cases)
     {
         int N[cases], R[cases-1], JJ[cases-1];
         for (int i = 0; i < cases; i++)
