@@ -1,51 +1,58 @@
 // Problem E - Almost Union-Find
 
 #include <iostream>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
     #ifndef ONLINE_JUDGE
-        freopen("in_04.txt", "r", stdin);
-        freopen("out_04.txt", "w", stdout);
+        freopen("in_05.txt", "r", stdin);
+        freopen("out_05.txt", "w", stdout);
     #endif
 
     int n, o;
     while(cin>>n>>o)
     {
-        // Estructura de almacenamiento: 
-        // Cada elemento esta emparejado a su padre.
-        vector<pair<int,int>> sets(n);
-        pair<int, int> p;       // p,e
+        // Estructura de almacenamiento:
+        // Indice -> elemento                       i: 0 1 2 3
+        // S[indice]-> Almacena al representativo   r: 0 1 2 3
+        int S[n+1];
         for(int i = 1; i <= n; i++)
-        {
-            p = make_pair(i,i);
-            sets.push_back(p);
-        }
+            S[i] = i;
 
         // Operaciones
-        int op, e1, e2, p1, p2;
-        cin>>op;
-        for (int j = 0; j<o; j++)
+        int op, p, q;
+        for (int j = 0; j < o; j++)
         {
-            switch(op)
+            cin>>op;
+            switch (op)
             {
-            case 1:     // unir conj (<-)
-                cin>>e1>>e2;
-                p1 = 1.first();
+            case 1:                             // unir {p..} + {q..} -> {p .., q..}
+                cin>>p>>q;
+                for(int k = 1; k <= n; k++)     // k = elemento; S[k] = representativo
+                    if (S[k] == S[q])
+                        S[k] = S[p];
                 break;
-            case 2:     // mover elem -> conj
-                /* code */
+            
+            case 2:                             // mover p -> {q,..}
+                cin>>p>>q;
+                S[p] = S[q];
                 break;
-            case 3:     // suma y nro de elemtos
-                /* code */
-                break;
-            default:
+            case 3:                             // suma y nro de elemtos de p
+                cin>>p;
+                int counter = 0, suma = 0;
+                for(int k = 1; k <= n; k++)     // k = elemento; S[k] = representativo
+                {
+                    if(S[k] == S[p])
+                    {
+                        counter++;
+                        suma += k;
+                    }
+                }
+                cout << counter <<" "<< suma <<"\n";
                 break;
             }
         }
-    }    
+    }
 }
