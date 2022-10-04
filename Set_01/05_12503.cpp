@@ -1,7 +1,8 @@
 // 12503 - Robot Instructions
 #include <cstdio>
-#include <string.h>
-
+#include <string>
+#include <iostream>
+using namespace std;
 
 int main()
 {
@@ -11,42 +12,42 @@ int main()
     #endif
 
     int test;
-    int nInstr;             // nro. instrucciones
-    char instr[12];         // instruccion [longitud maxima]
-    int lineInstr;          // nro. de instr previa
-
-
     scanf("%d", &test);
-    while(test)
+    string instr, instr2;   
+
+    while(test--)
     {
-        int posicion = 0;
-        int I[nInstr];       // array I almacena n instr
+        int nInstr;             // nro. instrucciones
+        scanf("%d", &nInstr);
+        
+        int I[nInstr + 1]; 
+        I[0] = 0;       // array I almacena n instr
+        int posicion = 0, line;
         int i;
 
-        scanf("%d", &nInstr);
         // Almacenar en I[] las instrucciones de c/linea
-        for( i = 0; i < nInstr; i++ )
+        for( i = 1; i <= nInstr; i++ )
         {
-            scanf("%s", instr);
-            if( !strcmp(instr, "LEFT"))         // strcmp return 0 if both are =
-                I[i] = -1;
-            else if( !strcmp(instr, "RIGHT"))
-                I[i] = 1;
-            else 
+            cin>>instr;
+            if( instr.compare("LEFT") == 0)
             {
-                scanf("%s", instr);
-                scanf("%d", &lineInstr);
-                I[i] = I[lineInstr-1];
+                I[i] = -1;
+                posicion = posicion + I[i];
+            }        
+            else if( instr.compare("RIGHT") == 0)
+            {
+                I[i] = 1;
+                posicion = posicion + I[i];
+            }
+            else if (instr.compare("SAME") == 0)
+            {
+                cin>>instr2>>line;
+                I[i] = I[line];
+                posicion = posicion + I[i];
             }
         }
-        // Desarrollar c/instruccion partiendo del origen 0
-        for ( i = 0; i < nInstr; i++)
-        {
-            posicion = posicion + I[i];
-        }
+        
         printf("%d\n", posicion);
-
-        test --;
     }
     return 0;
 }

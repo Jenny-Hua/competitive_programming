@@ -1,4 +1,4 @@
-// 07.-  11507 - Bender B. Rodríguez Problem
+// 07.  11507 - Bender B. Rodríguez Problem
 #include <iostream>
 using namespace std;
 
@@ -12,5 +12,7 @@ int main()
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
 #endif
+
+
     return 0;
 }
