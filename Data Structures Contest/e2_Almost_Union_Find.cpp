@@ -6,7 +6,7 @@ using namespace std;
 #define maxSize 100000
 
 int padre[maxSize]={0};
-int rango[maxSize]={0};
+int tamano[maxSize]={0};
 
 // Disjoin union set
 int find_set(int v) {
@@ -17,24 +17,35 @@ int find_set(int v) {
 
 void make_set(int v) {
     padre[v] = v;
-    rango[v] = 0;
+    tamano[v] = 1;
 }
-void move_set(int a, int b) {
+void move_to_set(int a, int b) {
     padre[a] = find_set(b);
+    tamano[b] += tamano[a];
     // actualizar rank
     // si el padre no tiene mas hijos, se reduce el rank--
     // si no, no cambia el rank
     // https://visualgo.net/en/ufds?slide=1
+    for(int k = 1; k <= n; k++)     // k = elemento; padre[k] = representativo
+    {
+        if(padre[k] == a) // Compresion del camino con find_set
+        {
+            padre[k] = k;
+            
+        }
+    }
+}
+void count_sum_set(int a){
+
 }
 void union_sets(int a, int b) {
     a = find_set(a);
     b = find_set(b);
     if (a != b) {
-        if (rango[a] < rango[b])
+        if (tamano[a] < tamano[b])
             swap(a, b);
         padre[b] = a;
-        if (rango[a] == rango[b])
-            rango[a]++;
+        tamano[a] += tamano[b];
     }
 }
 
@@ -71,14 +82,15 @@ int main()
             
             case 2:                             // mover p -> {q,..}
                 cin>>p>>q;
-                move_set(p, q);
+                move_to_set(p, q);
                 break;
             case 3:                             // suma y nro de elemtos de p
                 cin>>p;
                 int counter = 0, suma = 0;
                 for(int k = 1; k <= n; k++)     // k = elemento; padre[k] = representativo
                 {
-                    if(padre[k] == padre[p])
+                    cout <<"Set de " << k <<": "<< find_set(k)<<"\n";
+                    if(find_set(k) == padre[p]) // Compresion del camino con find_set
                     {
                         counter++;
                         suma += k;
@@ -90,7 +102,7 @@ int main()
         }
         for(int v = 1; v <= n; v++){
             cout << padre[v] << " - ";
-            cout << rango[v] << "\n";
+            cout << tamano[v] << "\n";
         }
     }   
 }
