@@ -4,23 +4,23 @@
 #include <string>
 using namespace std;
 
-#define maxSize 1000000
+const int NMAX = 100000;
 
-int padre[maxSize] = {0};
-int tamano[maxSize] = {0};
+int padre[NMAX] = {0};
+int tamano[NMAX] = {0};
 
-// Disjoin union set
-int findSet(int v)
-{
-    if (v == padre[v])
-        return v;
-    return padre[v] = findSet(padre[v]);
-}
 
 void makeSet(int v)
 {
     padre[v] = v;
     tamano[v] = 1;
+}
+
+int findSet(int v)
+{
+    if (v == padre[v])
+        return v;
+    return padre[v] = findSet(padre[v]);
 }
 
 void unionSets(int a, int b)
