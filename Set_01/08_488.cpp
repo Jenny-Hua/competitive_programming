@@ -16,9 +16,9 @@ int main ()
     {
         int A, F;
         cin >> A >> F;
-        
         for (int i = 0; i < F; i++)
         {
+            // if(i != 0) cout <<"\n";
             for (int j = 1; j <= A; j++)
             {
                 for (int k = 0; k < j; k++)
@@ -33,10 +33,13 @@ int main ()
                 {
                     cout<<j;
                 }
-                cout<<"\n"; 
+
+                if(j != 1) cout <<"\n";
             }
-            cout<<"\n"; 
+            if(i != F-1) cout <<"\n";
+
         }
+        if(cases) cout <<"\n";
     }
     
     return 0;
