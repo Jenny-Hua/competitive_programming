@@ -1,5 +1,6 @@
 // Problem A
 // Fenwick Tree
+// https://open.kattis.com/contests/fjb3ni/problems/fenwick
 
 #include <iostream>
 #include <vector>
@@ -10,8 +11,8 @@ struct FenwickTree {
     long n;
 
     FenwickTree(long n) {
-        this->n = n;
-        bit.assign(n, 0);
+        this->n = n+1;
+        bit.assign(n+1, 0);
     }
 
     void printBit()
@@ -20,10 +21,11 @@ struct FenwickTree {
             cout << it << " ";
         cout <<"\n";
     }
-    long sum(long ind) {
+
+    long sum(long r) {
         long ret = 0;
-        for (; ind>= 0; ind= (ind& (ind+ 1)) - 1)
-            ret += bit[ind];
+        for (; r >= 0; r = (r & (r + 1)) - 1)
+            ret += bit[r];
         return ret;
     }
 
@@ -35,6 +37,7 @@ struct FenwickTree {
         for (; ind < n; ind = ind | (ind + 1))
             bit[ind] += delta;
     }
+
     long pointQuery(long ind) {
         long ret = 0;
         for (++ind; ind > 0; ind -= ind & -ind)
@@ -73,7 +76,7 @@ int main()
         else if (op =='?')
         {
             cin >> i;
-            long res = BiTree.pointQuery(i);
+            long res = BiTree.sum(1, i);
             cout << res << "\n";
         }
     }
