@@ -50,7 +50,7 @@ int main ()
     M,      //pair of lines
     T,      //concatenates T times the next string
     Q;      //num of queries
-    string s1, s2;
+    char s1[50], s2;
     cin>>cases;
     while (cases--)
     {
