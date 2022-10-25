@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include <string>
 using namespace std;
 
@@ -39,6 +40,10 @@ void update(int v, int tl, int tr, int pos, int new_val) {
     }
 }
 
+// Solve
+void mutate()
+{}
+
 int main ()
 {
     #ifndef ONLINE_JUDGE
@@ -50,7 +55,7 @@ int main ()
     M,      //pair of lines
     T,      //concatenates T times the next string
     Q;      //num of queries
-    char s1[50], s2;
+    string s1, s2; // s2 almacena la cadena concatenada
     cin>>cases;
     while (cases--)
     {
@@ -59,7 +64,12 @@ int main ()
         {
             cin >>T;
             cin >> s1;
-            cout<<s1<<"*\n";
+            
+            // Concatenar T veces s1 en s2
+            for (int j = 0; j < T; j++)
+                s2 += s1;
+
+            cout<<s1<<": "<<s2<< " size: "<< s2.length() << "*\n";
         }
 
         cin >> Q;
@@ -69,6 +79,23 @@ int main ()
         {
             cin >> q >> a >> b;
             cout<< q <<": "<<a <<" - " << b<<"\n";
+
+            switch (q)
+            {
+            case 'F':  // to Buccaneer form a to b
+                
+                break;
+            case 'E':  // to Barbary from a to B
+                
+                break;
+            case 'I':  // inverse from a to b
+                
+                break;
+            case 'S':  // God's query how many Buccaneer pirates from a to b
+                
+                break;
+            
+            }
         }
         
     }
