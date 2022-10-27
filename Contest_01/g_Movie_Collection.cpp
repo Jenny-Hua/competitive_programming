@@ -1,37 +1,44 @@
 // Problem G - Movie collection
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-//Fenwick Tree
-struct FenwickTreeMin {
-    vector<int> bit;
-    int n;
-    const int INF = (int)1e9;
+const int MAX = 100000;
 
-    FenwickTreeMin(int n) {
-        this->n = n;
-        bit.assign(n, INF);
-    }
+int movies, requests;
+int A [MAX + 1] = {0};
+long BITree [MAX + 1] = {0};
 
-    FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            update(i, a[i]);
+// Actualizar el BIT tree (indice 0 es dummy)
+void updateBT(int ind, int val)
+{
+    for(; ind <= movies; ind += ind & -ind)
+    {
+        cout << ind  << "\t";
+        BITree[ind] += val;
+        cout << BITree[ind] << "\n";
     }
+}
 
-    int getmin(int r) {
-        int ret = INF;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret = min(ret, bit[r]);
-        return ret;
-    }
+int query(int ind)
+{   
+    int sum = 0;
+    for (; ind > 0; ind -= ind & -ind)
+        sum += BITree[ind];
+    return sum;
+}
 
-    void update(int idx, int val) {
-        for (; idx < n; idx = idx | (idx + 1))
-            bit[idx] = min(bit[idx], val);
+// inicializa stack de movies.
+// el index es el ID de cada película
+// el indice 0 no se considera
+void initA(int movies)
+{
+    for(int i = 1; i<= movies; i++)
+    {
+        A[i] = i;
+        updateBT(i, A[i]);
     }
-};
+}
 
 
 
@@ -39,26 +46,27 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
-
-    int cases, m, r;
-    cin >> cases;
-    while (cases--)
-    {
-        cin >> m >> r;
-        int quitado;
-        for (int i = 0; i<r; i++)
-        {
-            cin >> quitado;
-            // Calcular cuantos tenia antes
-            // colocarlo arriba de todos
-            cout << r << " - Arriba: "<<" ";
-        }
-    }
-
     #ifndef ONLINE_JUDGE
         freopen("in_07.txt", "r", stdin);
         freopen("out_07.txt", "w", stdout);
     #endif
+    int cases;
+    cin >> cases;
+    while ( cases --)
+    {
+        cin >> movies >> requests;
+        initA(movies);
+        
+        int quitado;
+        for (int i = 0; i < requests; i++)
+        {
+            cin >> quitado;
+            cout << "quitado: " << quitado << " ";
+        }
+        cout << "\n";
+    }
+
+    
 
     
 }
